@@ -69,3 +69,6 @@ frontend/dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Large trained ML model files
+ml/models/*.pkl
