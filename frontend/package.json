@@ -1,0 +1,24 @@
+{
+  "name": "sustainable-facility-ai",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite",
+    "preview": "vite"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.1",
+    "@vitejs/plugin-react": "latest",
+    "axios": "^1.20.0",
+    "lucide-react": "^1.52.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1",
+    "three": "^0.186.1",
+    "vite": "latest"
+  }
+}
