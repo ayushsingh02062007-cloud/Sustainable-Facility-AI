@@ -1,10 +1,10 @@
-﻿from fastapi import APIRouter
+from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/water", tags=["Water"])
 
-water_model = load_model("water_model.pkl")
+water_model = None
 
 
 class WaterPredictionInput(BaseModel):
@@ -31,6 +31,9 @@ def get_water():
 
 @router.post("/predict")
 def predict_water(data: WaterPredictionInput):
+    global water_model
+    if water_model is None:
+        water_model = load_model("water_model.pkl")
     prediction = water_model.predict([[
         data.temperature,
         data.humidity,

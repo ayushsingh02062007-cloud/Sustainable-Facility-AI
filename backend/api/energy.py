@@ -1,10 +1,10 @@
-﻿from fastapi import APIRouter
+from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/energy", tags=["Energy"])
 
-energy_model = load_model("energy_model.pkl")
+energy_model = None
 
 
 class EnergyPredictionInput(BaseModel):
@@ -35,6 +35,9 @@ def get_energy():
 
 @router.post("/predict")
 def predict_energy(data: EnergyPredictionInput):
+    global energy_model
+    if energy_model is None:
+        energy_model = load_model("energy_model.pkl")
     prediction = energy_model.predict([[
         data.temperature,
         data.humidity,
@@ -49,5 +52,8 @@ def predict_energy(data: EnergyPredictionInput):
         "model": "RandomForestRegressor",
         "status": "Prediction successful"
     }
+
+
+
 
 

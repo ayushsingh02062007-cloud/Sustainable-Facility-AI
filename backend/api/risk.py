@@ -1,10 +1,10 @@
-﻿from fastapi import APIRouter
+from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/risk", tags=["Risk"])
 
-risk_model = load_model("risk_model.pkl")
+risk_model = None
 
 
 class RiskPredictionInput(BaseModel):
@@ -39,6 +39,9 @@ def get_risk():
 
 @router.post("/predict")
 def predict_risk(data: RiskPredictionInput):
+    global risk_model
+    if risk_model is None:
+        risk_model = load_model("risk_model.pkl")
     prediction = risk_model.predict([[
         data.temperature,
         data.humidity,

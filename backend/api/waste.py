@@ -1,10 +1,10 @@
-﻿from fastapi import APIRouter
+from fastapi import APIRouter
 from pydantic import BaseModel
 from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/waste", tags=["Waste"])
 
-waste_model = load_model("waste_model.pkl")
+waste_model = None
 
 
 class WastePredictionInput(BaseModel):
@@ -31,6 +31,9 @@ def get_waste():
 
 @router.post("/predict")
 def predict_waste(data: WastePredictionInput):
+    global waste_model
+    if waste_model is None:
+        waste_model = load_model("waste_model.pkl")
     prediction = waste_model.predict([[
         data.occupancy,
         data.energy_kwh,
