@@ -8,3 +8,5 @@ pydantic
 python-dotenv
 sqlalchemy
 psycopg2-binary
+
+huggingface_hub<2.0

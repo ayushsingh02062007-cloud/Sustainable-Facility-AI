@@ -1,12 +1,10 @@
 ﻿from fastapi import APIRouter
 from pydantic import BaseModel
-import joblib
-from pathlib import Path
+from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/risk", tags=["Risk"])
 
-MODEL_PATH = Path(__file__).resolve().parents[2] / "ml" / "models" / "risk_model.pkl"
-risk_model = joblib.load(MODEL_PATH)
+risk_model = load_model("risk_model.pkl")
 
 
 class RiskPredictionInput(BaseModel):
@@ -68,3 +66,5 @@ def predict_risk(data: RiskPredictionInput):
         "model": "RandomForestRegressor",
         "status": "Prediction successful"
     }
+
+

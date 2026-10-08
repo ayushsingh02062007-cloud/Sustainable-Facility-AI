@@ -1,12 +1,10 @@
 ﻿from fastapi import APIRouter
 from pydantic import BaseModel
-import joblib
-from pathlib import Path
+from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/water", tags=["Water"])
 
-MODEL_PATH = Path(__file__).resolve().parents[2] / "ml" / "models" / "water_model.pkl"
-water_model = joblib.load(MODEL_PATH)
+water_model = load_model("water_model.pkl")
 
 
 class WaterPredictionInput(BaseModel):
@@ -46,3 +44,5 @@ def predict_water(data: WaterPredictionInput):
         "model": "RandomForestRegressor",
         "status": "Prediction successful"
     }
+
+

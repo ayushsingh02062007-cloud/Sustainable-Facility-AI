@@ -1,12 +1,10 @@
 ﻿from fastapi import APIRouter
 from pydantic import BaseModel
-import joblib
-from pathlib import Path
+from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/waste", tags=["Waste"])
 
-MODEL_PATH = Path(__file__).resolve().parents[2] / "ml" / "models" / "waste_model.pkl"
-waste_model = joblib.load(MODEL_PATH)
+waste_model = load_model("waste_model.pkl")
 
 
 class WastePredictionInput(BaseModel):
@@ -46,3 +44,5 @@ def predict_waste(data: WastePredictionInput):
         "model": "RandomForestRegressor",
         "status": "Prediction successful"
     }
+
+

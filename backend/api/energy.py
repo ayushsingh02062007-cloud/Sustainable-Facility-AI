@@ -1,12 +1,10 @@
 ﻿from fastapi import APIRouter
 from pydantic import BaseModel
-import joblib
-from pathlib import Path
+from backend.model_loader import load_model
 
 router = APIRouter(prefix="/api/energy", tags=["Energy"])
 
-MODEL_PATH = Path(__file__).resolve().parents[2] / "ml" / "models" / "energy_model.pkl"
-energy_model = joblib.load(MODEL_PATH)
+energy_model = load_model("energy_model.pkl")
 
 
 class EnergyPredictionInput(BaseModel):
@@ -51,3 +49,5 @@ def predict_energy(data: EnergyPredictionInput):
         "model": "RandomForestRegressor",
         "status": "Prediction successful"
     }
+
+
