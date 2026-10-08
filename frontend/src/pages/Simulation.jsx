@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Zap,
   Droplets,
@@ -10,8 +10,6 @@ import {
   ArrowRight,
   AlertTriangle
 } from "lucide-react";
-
-const API = "http://127.0.0.1:8000";
 
 const metrics = [
   {
@@ -50,8 +48,7 @@ export default function Simulation() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/simulation`)
+    api.get("/simulation")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -196,3 +193,6 @@ export default function Simulation() {
     </div>
   );
 }
+
+
+

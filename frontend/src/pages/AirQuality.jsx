@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Wind,
   Thermometer,
@@ -20,16 +20,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const API = "http://127.0.0.1:8000";
-
 export default function AirQuality() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/air-quality`)
+    api.get("/air-quality")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -215,3 +212,6 @@ export default function AirQuality() {
     </div>
   );
 }
+
+
+

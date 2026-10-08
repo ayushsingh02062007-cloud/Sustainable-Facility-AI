@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+﻿import { useEffect, useState } from "react";
+import api from "../services/api";
 import {
   Wrench,
   Activity,
@@ -11,15 +11,13 @@ import {
   Zap
 } from "lucide-react";
 
-const API = "http://127.0.0.1:8000";
-
 export default function Assets() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get(`${API}/api/assets`)
+    api.get("/assets")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -152,7 +150,7 @@ export default function Assets() {
 
                 <div className="asset-info">
                   <strong>{asset.name}</strong>
-                  <span>{asset.id} · {asset.category}</span>
+                  <span>{asset.id} Â· {asset.category}</span>
                 </div>
 
                 <div className="asset-health">
@@ -171,3 +169,8 @@ export default function Assets() {
     </div>
   );
 }
+
+
+
+
+

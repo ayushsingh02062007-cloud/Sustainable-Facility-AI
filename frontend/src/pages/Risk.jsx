@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+﻿import { useEffect, useState } from "react";
+import api from "../services/api";
 import {
   ShieldAlert,
   Activity,
@@ -23,15 +23,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const API = "http://127.0.0.1:8000";
-
 export default function Risk() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get(`${API}/api/risk`)
+    api.get("/risk")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -216,3 +214,8 @@ export default function Risk() {
     </div>
   );
 }
+
+
+
+
+

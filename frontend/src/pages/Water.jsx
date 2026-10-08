@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Droplets,
   Activity,
@@ -19,16 +19,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const API = "http://127.0.0.1:8000";
-
 export default function Water() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/water`)
+    api.get("/water")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -200,3 +197,6 @@ export default function Water() {
     </div>
   );
 }
+
+
+

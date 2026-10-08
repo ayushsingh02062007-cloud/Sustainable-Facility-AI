@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Brain,
   CheckCircle,
@@ -10,8 +10,6 @@ import {
   Wrench,
   ArrowRight
 } from "lucide-react";
-
-const API = "http://127.0.0.1:8000";
 
 const moduleIcons = {
   Energy: Zap,
@@ -26,8 +24,7 @@ export default function AIInsights() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/recommendations`)
+    api.get("/recommendations")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -200,3 +197,6 @@ export default function AIInsights() {
     </div>
   );
 }
+
+
+

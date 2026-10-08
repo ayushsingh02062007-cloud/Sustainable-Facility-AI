@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Zap,
   Activity,
@@ -20,16 +20,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const API = "http://127.0.0.1:8000";
-
 export default function Energy() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/energy`)
+    api.get("/energy")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -211,3 +208,6 @@ export default function Energy() {
     </div>
   );
 }
+
+
+

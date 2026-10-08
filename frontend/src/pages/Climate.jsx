@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Thermometer,
   Droplets,
@@ -20,16 +20,13 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const API = "http://127.0.0.1:8000";
-
 export default function Climate() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/climate`)
+    api.get("/climate")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -208,3 +205,6 @@ export default function Climate() {
     </div>
   );
 }
+
+
+

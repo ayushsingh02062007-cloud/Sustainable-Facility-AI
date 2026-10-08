@@ -1,5 +1,5 @@
-﻿import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import {
@@ -12,8 +12,6 @@ import {
   Car,
   ShieldCheck
 } from "lucide-react";
-
-const API = "http://127.0.0.1:8000";
 
 function Tree({ position, scale = 1 }) {
   return (
@@ -349,8 +347,7 @@ export default function Facility3D() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/3d`)
+    api.get("/3d")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -389,32 +386,32 @@ export default function Facility3D() {
 
           <div className="facility-live-list">
             <div>
-              <span>🌡 Temperature</span>
+              <span>?? Temperature</span>
               <strong>28.4 °C</strong>
             </div>
 
             <div>
-              <span>💧 Humidity</span>
+              <span>?? Humidity</span>
               <strong>62%</strong>
             </div>
 
             <div>
-              <span>👥 Occupancy</span>
+              <span>?? Occupancy</span>
               <strong>250</strong>
             </div>
 
             <div>
-              <span>🌫 AQI</span>
+              <span>?? AQI</span>
               <strong>76</strong>
             </div>
 
             <div>
-              <span>🚗 Traffic</span>
+              <span>?? Traffic</span>
               <strong>124</strong>
             </div>
 
             <div>
-              <span>⚙ Asset Utilization</span>
+              <span>? Asset Utilization</span>
               <strong>85%</strong>
             </div>
           </div>
@@ -561,5 +558,8 @@ export default function Facility3D() {
     </div>
   );
 }
+
+
+
 
 

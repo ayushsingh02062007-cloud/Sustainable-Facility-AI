@@ -1,5 +1,5 @@
-﻿import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 import {
   Activity,
   Zap,
@@ -12,15 +12,13 @@ import {
   Database
 } from "lucide-react";
 
-const API = "http://127.0.0.1:8000";
-
 export default function Dashboard() {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${API}/api/dashboard`)
+    api
+      .get("/dashboard")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -29,43 +27,19 @@ export default function Dashboard() {
   }, []);
 
   const kpis = [
-    {
-      title: "Energy",
-      value: data?.energy ?? "--",
-      unit: "kWh",
-      icon: Zap
-    },
-    {
-      title: "Water",
-      value: data?.water ?? "--",
-      unit: "L",
-      icon: Droplets
-    },
-    {
-      title: "Waste",
-      value: data?.waste ?? "--",
-      unit: "kg",
-      icon: Trash2
-    },
-    {
-      title: "Air Quality",
-      value: data?.aqi ?? "--",
-      unit: "AQI",
-      icon: Wind
-    }
+    { title: "Energy", value: data?.energy ?? "--", unit: "kWh", icon: Zap },
+    { title: "Water", value: data?.water ?? "--", unit: "L", icon: Droplets },
+    { title: "Waste", value: data?.waste ?? "--", unit: "kg", icon: Trash2 },
+    { title: "Air Quality", value: data?.aqi ?? "--", unit: "AQI", icon: Wind }
   ];
 
   return (
     <div className="dashboard-page">
-
       <div className="page-header">
         <div>
           <h1>Sustainable Facility AI</h1>
-          <p>
-            AI-powered facility intelligence and sustainability monitoring
-          </p>
+          <p>AI-powered facility intelligence and sustainability monitoring</p>
         </div>
-
         <div className="live-status">
           <span className="status-dot"></span>
           LIVE SYSTEM
@@ -82,16 +56,13 @@ export default function Dashboard() {
       <div className="kpi-grid">
         {kpis.map((item) => {
           const Icon = item.icon;
-
           return (
             <div className="kpi-card" key={item.title}>
               <div className="kpi-icon">
                 <Icon size={25} />
               </div>
-
               <div>
                 <p>{item.title}</p>
-
                 <h2>
                   {item.value}
                   <span>{item.unit}</span>
@@ -103,19 +74,16 @@ export default function Dashboard() {
       </div>
 
       <div className="dashboard-grid">
-
         <div className="panel">
           <div className="panel-title">
             <div>
               <h2>Facility Overview</h2>
               <p>Current operational intelligence</p>
             </div>
-
             <Activity size={22} />
           </div>
 
           <div className="overview-list">
-
             <div>
               <span>Sustainability Score</span>
               <strong>
@@ -126,39 +94,28 @@ export default function Dashboard() {
 
             <div>
               <span>Operational Risk</span>
-
-              <strong className="risk-low">
-                {data?.risk ?? "--"}
-              </strong>
+              <strong className="risk-low">{data?.risk ?? "--"}</strong>
             </div>
 
             <div>
               <span>System Status</span>
-
-              <strong className="status-active">
-                ACTIVE
-              </strong>
+              <strong className="status-active">ACTIVE</strong>
             </div>
-
           </div>
         </div>
 
         <div className="panel">
-
           <div className="panel-title">
             <div>
               <h2>AI System Status</h2>
               <p>Decision-support engine</p>
             </div>
-
             <ShieldCheck size={22} />
           </div>
 
           <div className="ai-status">
-
             <div className="ai-status-item">
               <ShieldCheck />
-
               <div>
                 <strong>Anomaly Detection</strong>
                 <span>Active</span>
@@ -167,7 +124,6 @@ export default function Dashboard() {
 
             <div className="ai-status-item">
               <TrendingUp />
-
               <div>
                 <strong>Forecasting Engine</strong>
                 <span>Active</span>
@@ -176,23 +132,18 @@ export default function Dashboard() {
 
             <div className="ai-status-item">
               <Activity />
-
               <div>
                 <strong>Recommendation Engine</strong>
                 <span>Active</span>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
 
       <div className="panel system-panel">
-
         <div className="system-item">
           <Database size={22} />
-
           <div>
             <strong>IoT Data Pipeline</strong>
             <span>Connected</span>
@@ -201,7 +152,6 @@ export default function Dashboard() {
 
         <div className="system-item">
           <Activity size={22} />
-
           <div>
             <strong>FastAPI Backend</strong>
             <span>Online</span>
@@ -210,27 +160,21 @@ export default function Dashboard() {
 
         <div className="system-item">
           <ShieldCheck size={22} />
-
           <div>
             <strong>ML Models</strong>
             <span>Loaded</span>
           </div>
         </div>
-
       </div>
 
       <div className="panel welcome-panel">
-
-        <h2>🤖 AI Facility Intelligence</h2>
-
+        <h2>AI Facility Intelligence</h2>
         <p>
           The platform combines IoT data, machine learning,
           anomaly detection, forecasting and risk analysis
           to support sustainable facility operations.
         </p>
-
       </div>
-
     </div>
   );
 }

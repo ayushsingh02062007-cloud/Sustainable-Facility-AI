@@ -1,5 +1,5 @@
 ﻿import { useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import {
   Brain,
   Zap,
@@ -8,8 +8,6 @@ import {
   ShieldAlert,
   Activity
 } from "lucide-react";
-
-const API = "http://127.0.0.1:8000";
 
 export default function AIPrediction() {
   const [form, setForm] = useState({
@@ -38,7 +36,7 @@ export default function AIPrediction() {
     setError("");
 
     try {
-      const energy = await axios.post(`${API}/api/energy/predict`, {
+      const energy = await api.post("/energy/predict", {
         temperature: form.temperature,
         humidity: form.humidity,
         occupancy: form.occupancy,
@@ -47,7 +45,7 @@ export default function AIPrediction() {
         traffic_count: form.traffic_count
       });
 
-      const water = await axios.post(`${API}/api/water/predict`, {
+      const water = await api.post("/water/predict", {
         temperature: form.temperature,
         humidity: form.humidity,
         occupancy: form.occupancy,
@@ -55,7 +53,7 @@ export default function AIPrediction() {
         aqi: form.aqi
       });
 
-      const waste = await axios.post(`${API}/api/waste/predict`, {
+      const waste = await api.post("/waste/predict", {
         occupancy: form.occupancy,
         energy_kwh: energy.data.predicted_energy_kwh,
         water_liters: water.data.predicted_water_liters,
@@ -63,7 +61,7 @@ export default function AIPrediction() {
         traffic_count: form.traffic_count
       });
 
-      const risk = await axios.post(`${API}/api/risk/predict`, {
+      const risk = await api.post("/risk/predict", {
         temperature: form.temperature,
         humidity: form.humidity,
         occupancy: form.occupancy,
@@ -75,7 +73,7 @@ export default function AIPrediction() {
         asset_utilization: form.asset_utilization
       });
 
-      const anomaly = await axios.post(`${API}/api/anomalies/predict`, {
+      const anomaly = await api.post("/anomalies/predict", {
         temperature: form.temperature,
         humidity: form.humidity,
         occupancy: form.occupancy,
@@ -105,7 +103,7 @@ export default function AIPrediction() {
   };
 
   const fields = [
-    ["temperature", "Temperature (°C)"],
+    ["temperature", "Temperature (Â°C)"],
     ["humidity", "Humidity (%)"],
     ["occupancy", "Occupancy"],
     ["water_liters", "Current Water Usage (L)"],
@@ -231,3 +229,16 @@ export default function AIPrediction() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

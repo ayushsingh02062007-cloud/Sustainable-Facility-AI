@@ -13,6 +13,8 @@ class EnergyPredictionInput(BaseModel):
     occupancy: float
     water_liters: float
     aqi: float
+
+
     traffic_count: float
 
 
