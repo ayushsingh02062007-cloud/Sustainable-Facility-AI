@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     api
-      .get("/dashboard")
+      .get("/dashboard/")
       .then((res) => setData(res.data))
       .catch((err) => {
         console.error(err);
@@ -178,3 +178,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
